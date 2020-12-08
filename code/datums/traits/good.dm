@@ -99,7 +99,7 @@
 /datum/quirk/multilingual
 	name = "Multilingual"
 	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
-	value = 2
+	value = 1
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
 	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
@@ -175,8 +175,8 @@
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
-	for(var/mob/living/L in oview(5, quirk_holder))
-		if(L.mind?.isholy && L.stat == CONSCIOUS)
+	for(var/mob/living/carbon/human/H in oview(5, quirk_holder))
+		if(H.mind?.isholy && H.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)

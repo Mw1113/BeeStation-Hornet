@@ -11,6 +11,9 @@
 	if(!D)
 		return
 
+	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
+	asset_cache_datum.send(usr)
+
 	var/islist = islist(D)
 	if(!islist && !istype(D))
 		return
@@ -25,7 +28,8 @@
 	if(istype(D, /atom))
 		sprite = getFlatIcon(D)
 		hash = md5(sprite)
-		src << browse_rsc(sprite, "vv[hash].png")
+		if(hash) //Fixes VV shitting it's pants if the icon isn't valid
+			src << browse_rsc(sprite, "vv[hash].png")
 
 	title = "[D] ([REF(D)]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
@@ -90,7 +94,7 @@
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<title>[title]</title>
-		<link rel="stylesheet" type="text/css" href="view_variables.css">
+		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
 	</head>
 	<body onload='selectTextField()' onkeydown='return handle_keydown()' onkeyup='handle_keyup()'>
 		<script type="text/javascript">
